@@ -1,20 +1,22 @@
 // src/pages/ExplicacionVideo.tsx
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useCallback } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { markCompleted } from "@/lib/progress";
 
 export default function ExplicacionVideo() {
   const navigate = useNavigate();
   const ref = useRef<HTMLVideoElement | null>(null);
-  const location = useLocation() as any;
+  type LocState = { src?: string; gameId?: string } | undefined;
+  const location = useLocation();
+  const state = (location.state as LocState) || {};
 
-  const src = location?.state?.src || "/videos/explicacion-carga-electrica.mp4";
-  const gameId = location?.state?.gameId as string | undefined; // "carga-electrica"
+  const src = state.src || "/videos/explicacion-carga-electrica.mp4";
+  const gameId = state.gameId;
 
-  const goHome = () => {
+  const goHome = useCallback(() => {
     if (gameId) markCompleted(gameId);
     navigate("/", { replace: true });
-  };
+  }, [navigate, gameId]);
 
   useEffect(() => {
     const v = ref.current;
@@ -22,7 +24,7 @@ export default function ExplicacionVideo() {
     const onEnded = () => goHome();
     v.addEventListener("ended", onEnded);
     return () => v.removeEventListener("ended", onEnded);
-  }, []); // eslint-disable-line
+  }, [goHome]);
 
   return (
     <div className="w-screen h-screen bg-black flex items-center justify-center">
