@@ -1,0 +1,127 @@
+*{margin:0;padding:0;box-sizing:border-box}
+body{overflow:hidden}
+.title{
+  text-align:center;color:#fff;font-size:2rem;font-weight:700;
+  padding:16px 20px;text-shadow:0 2px 8px rgba(0,0,0,.35)
+}
+.bg{
+  position:fixed;inset:0;z-index:-1;
+  background:linear-gradient(135deg,#2c3e50 0%,#3498db 100%);
+}
+.game{position:relative;width:100vw;height:calc(100vh - 70px)}
+.panel{
+  position:absolute;left:24px;top:24px;
+  background:rgba(255,255,255,.1);backdrop-filter:blur(10px);
+  padding:12px 12px 16px;border-radius:14px;color:#fff;max-width:120px
+}
+.panel h3{font-size:14px;margin-bottom:8px}
+.bank{display:flex;flex-direction:column;gap:10px;max-height:68vh;overflow:auto}
+.car{
+  width:88px;height:60px;border-radius:10px;
+  background:linear-gradient(135deg,#f39c12,#e67e22);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 8px;color:#fff;font-weight:700;cursor:grab;user-select:none;
+  box-shadow:0 6px 14px rgba(0,0,0,.25);transition:transform .15s;
+}
+.car:active{cursor:grabbing;transform:scale(1.04)}
+.pole{width:24px;height:24px;border-radius:999px;display:grid;place-items:center;font-size:12px;font-weight:800}
+.pole.n{background:#e74c3c}.pole.s{background:#3498db}
+.rail{
+  position:absolute;left:50%;transform:translateX(-50%);
+  bottom:150px;width:80%;height:10px;border-radius:5px;
+  background:linear-gradient(90deg,#7f8c8d,#95a5a6,#7f8c8d);
+  box-shadow:0 3px 10px rgba(0,0,0,.35);
+}
+.sleepers{
+  position:absolute;left:50%;transform:translateX(-50%);
+  bottom:150px;width:80%;height:10px;pointer-events:none;
+}
+.sleepers::before{
+  content:"";position:absolute;inset:-6px 0 0 0;height:6px;
+  background:repeating-linear-gradient(90deg,#2c3e50 0 22px,transparent 22px 44px);
+  opacity:.9
+}
+.train-area{
+  position:absolute;
+  left:90%;
+  transform:translateX(-50%);
+  bottom:180px;
+  width:80%;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.loco{
+  width:130px;height:82px;border-radius:22px 12px 12px 12px;
+  background:linear-gradient(135deg,#e74c3c,#c0392b);
+  color:#fff;display:flex;align-items:center;justify-content:space-between;
+  padding:0 10px;font-weight:800;position:relative;flex:0 0 auto;
+  box-shadow:0 6px 16px rgba(0,0,0,.35)
+}
+.loco::before{
+  content:"";position:absolute;top:-18px;left:18px;width:28px;height:28px;background:#34495e;border-radius:999px
+}
+.loco::after{
+  content:"";position:absolute;top:-8px;right:10px;width:16px;height:36px;background:#2c3e50;border-radius:6px
+}
+.wheels{position:absolute;left:10px;right:10px;bottom:-14px;display:flex;justify-content:space-between}
+.wheel{width:20px;height:20px;border-radius:999px;background:#2c3e50;border:3px solid #34495e}
+.slots{display:flex;align-items:center;gap:8px;flex:1;min-height:82px}
+.slot{
+  width:96px;height:72px;border-radius:10px;border:3px dashed rgba(255,255,255,.55);
+  display:grid;place-items:center;color:#fff;font-weight:800;
+  background:rgba(255,255,255,.08);transition:all .18s ease;position:relative;
+}
+.slot.drag-ok{border-color:#27ae60;background:rgba(39,174,96,.12)}
+.slot.drag-bad{border-color:#e74c3c;background:rgba(231,76,60,.12)}
+.slot.filled{border-style:solid;border-color:#27ae60}
+.couple{
+  width:20px;height:20px;border-radius:999px;background:rgba(255,255,255,.22);
+  display:grid;place-items:center;color:#fff;font-size:12px;font-weight:900;
+  box-shadow:0 2px 8px rgba(0,0,0,.25)
+}
+.couple.ok{background:#27ae60}
+.couple.bad{background:#e74c3c}
+.controls{
+  position:absolute;left:50%;transform:translateX(-50%);bottom:24px;
+  display:flex;gap:12px;flex-wrap:wrap;background:rgba(255,255,255,.1);
+  padding:12px 14px;border-radius:14px;backdrop-filter:blur(10px)
+}
+.btn{border:none;border-radius:10px;padding:10px 16px;font-weight:800;color:#fff;cursor:pointer;transition:transform .12s, box-shadow .12s}
+.btn:hover{transform:translateY(-1px);box-shadow:0 6px 14px rgba(0,0,0,.25)}
+.check{background:#27ae60}.reset{background:#e74c3c}.help{background:#f39c12}.next{background:#3498db}
+.toast{
+  position:absolute;left:50%;top:14%;transform:translateX(-50%);
+  background:#fff;color:#333;padding:16px 20px;border-radius:12px;
+  box-shadow:0 12px 32px rgba(0,0,0,.35);display:none;max-width:560px;
+  text-align:center;font-weight:700
+}
+@keyframes moveLeft{from{transform:translateX(0)}to{transform:translateX(-420px)}}
+.moving .loco, .moving .slots{animation:moveLeft 3.6s cubic-bezier(.29,.74,.27,.99)}
+.moving .wheel{animation:spin 0.6s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.tip{
+  position:absolute;left:50%;transform:translateX(-50%);
+  top:84px;background:rgba(255,255,255,.92);padding:10px 16px;border-radius:10px;
+  font-weight:800;color:#333;box-shadow:0 6px 18px rgba(0,0,0,.25)
+}
+@media (max-width:900px){
+  .title{font-size:1.4rem}
+  .panel{left:12px;top:12px}
+  .car{transform:scale(.95);transform-origin:left top}
+  .slot{transform:scale(.95)}
+}
+
+/* ===== Modal de victoria ===== */
+.modal{
+  position:fixed; inset:0; display:none; place-items:center;
+  background:rgba(0,0,0,.45); z-index:60;
+}
+.modal .card{
+  background:#fff; color:#333; border-radius:12px; padding:18px 20px;
+  width:min(92vw,460px); box-shadow:0 16px 40px rgba(0,0,0,.35);
+  text-align:center;
+}
+.modal .card h3{ font-size:1.25rem; font-weight:800; margin-bottom:8px; }
+.modal .card p{ margin:6px 0 14px; font-weight:600; }
+.modal .card .btn.ok{ background:#27ae60; }
