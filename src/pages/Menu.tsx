@@ -22,7 +22,7 @@ const cards: Card[] = [
     formula: "∮E⋅dA = Q/ε₀",
     to: "/juegos/carga-electrica",
     grad: "from-orange-400 to-orange-600",
-    gameId: "carga-electrica", // <- tendrá chulito al terminar
+    gameId: "carga-electrica",
   },
   {
     id: 2,
@@ -34,15 +34,21 @@ const cards: Card[] = [
     grad: "from-yellow-300 to-pink-400",
     gameId: "gauss-magnetico",
   },
+
+  // 👇 NUEVO JUEGO
+  
+  
+
   {
     id: 3,
     title: "Ley de Faraday – Inducción",
     desc: "Explora cómo un campo magnético variable induce corriente.",
     icon: "⚡",
     formula: "ε = −dΦB/dt",
-    to: "/juegos/faraday",
+    to: "/juegos/cicla-dinamo",
     grad: "from-cyan-400 to-blue-600",
-    gameId: "faraday",
+    gameId: "cicla-dinamo",
+    
   },
   {
     id: 4,
